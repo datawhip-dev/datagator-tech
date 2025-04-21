@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  fscore:
+    build: .
+    container_name: fscore
+    volumes:
+      - ./fsroot:/mnt/volume
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=fsindex
+    restart: unless-stopped
