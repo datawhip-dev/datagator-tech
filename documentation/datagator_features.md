@@ -28,6 +28,7 @@
 | ✅ **Archive Rehydration** | Converts normalized sandbox contents back into legacy formats while preserving metadata and structure. |
 | ✅ **Test Filesystem Generation** | Supports generation of fully synthetic FS images with edge cases (holes, links, sparse regions, broken metadata). |
 | ✅ **Overlay Matching and Fingerprinting** | Recognizes previously seen container image overlays or extracted package sets for diffing, reuse, and cache-awareness. |
+| ✅ **Sealed Forensic Image Ingestion** | Supports `.E01`, `.AFF`, `.dd`, and raw sector images as read-only composite archives. Preserves cryptographic signatures, appends metadata without altering source. Mounts in walk-only mode with sector-level offset mapping and lineage logging. |
 
 ---
 
@@ -35,10 +36,10 @@
 
 | Vertical Killed | Killer Feature |
 |------------------|----------------|
-| 🔐 **Forensics** | Immutable, mountable snapshots with path+content provenance and timeline verification. Tracks orphaned blocks and canonical path states. |
+| 🔐 **Forensics** | Immutable, mountable snapshots with path+content provenance and timeline verification. Tracks orphaned blocks, sealed image hashes, Unicode truth, and canonical path states. |
 | 📟 **eDiscovery** | Composite archive unpacking + deduplication + searchable hashes + legal export format support. Full Unicode normalization and ACL traceability. |
 | 🤓 **Digital Preservation** | MDOS, QIC, ARK format extraction + normalized output = perfect for NARA, museums, academia. Supports rehydrated legacy formats. |
-| 📄 **Legal Chain-of-Custody** | Hash chain per file, with rehydration metadata = verifiable, court-admissible lineage. Unicode truth and hardlink evidence retained. |
+| 📄 **Legal Chain-of-Custody** | Hash chain per file, with rehydration metadata = verifiable, court-admissible lineage. Unicode truth and hardlink evidence retained. Preserves sealed forensic image signatures. |
 | 👷️‍♂️ **DevOps Artifact Management** | Extracts and deduplicates container images, firmware bundles, vendor packages. Matches overlays and reuses base layers. |
 | 🕸️ **Crawl + Index Systems** | Infogator/Infocobra-style recursive archive crawling across storage, cloud buckets, shared drives. Separate CLI personalities. |
 | 🧑‍🏫 **Education / CS Research** | Observe low-level formats, filesystem behavior, and disk artifacts in high fidelity. Built-in test FS generator. |
@@ -80,7 +81,4 @@
 | 🔢 **CLI Profile Mode** | Show memory usage, crawl time, dedup hits, hole regions per archive. |
 | 🛠️ **Syscall Tracing for Files Used** | Use `strace`/`dtruss` to trace files actually accessed during container or VM runs. |
 | 🔧 **CLI Mode Split** | Distinct UX for `infogator` (recursive archival indexer) vs `infocobra` (targeted, real-time scanner). |
-
----
-
 
