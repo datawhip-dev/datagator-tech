@@ -7,6 +7,7 @@
 ### 🔍 Core Functional Capabilities
 
 | Feature | Description |
+| ✅ **Historical Distro Package Walker** | Recursively decomposes `.src.rpm`, `.deb-src`, and legacy distro packages, reconstructing full build graphs from source, patch, spec, and git commits. Maps binaries to upstream commits and reconstructs provenance for every file from kernel to libc. |
 |--------|-------------|
 | ✅ **Recursive Archive Extraction** | Treats archives like virtual filesystems. Handles TAR, ZIP, GZ, 7z, ISO, DMG, ARK, QIC, MDOS, and custom legacy formats. |
 | ✅ **Filesystem Sandbox** | Extracts to a local sandbox with full structural fidelity. Maintains links, sparse files, perms, metadata. |
@@ -33,12 +34,12 @@
 
 ---
 
-### 🧐 Advanced Use Cases / Vertical Kill List
+### 🧠 Advanced Use Cases / Vertical Kill List
 
 | Vertical Killed | Killer Feature |
 |------------------|----------------|
 | 🔐 **Forensics** | Immutable, mountable snapshots with path+content provenance and timeline verification. Tracks orphaned blocks, sealed image hashes, Unicode truth, and canonical path states. Supports walk-only sealed images and `.sparsebundle` integrity. |
-| 📟 **eDiscovery** | Composite archive unpacking + deduplication + searchable hashes + legal export format support. Full Unicode normalization and ACL traceability. |
+| 📏 **eDiscovery** | Composite archive unpacking + deduplication + searchable hashes + legal export format support. Full Unicode normalization and ACL traceability. |
 | 🤓 **Digital Preservation** | MDOS, QIC, ARK format extraction + normalized output = perfect for NARA, museums, academia. Supports rehydrated legacy formats. |
 | 📄 **Legal Chain-of-Custody** | Hash chain per file, with rehydration metadata = verifiable, court-admissible lineage. Unicode truth and hardlink evidence retained. Preserves sealed forensic image signatures. |
 | 👷️‍♂️ **DevOps Artifact Management** | Extracts and deduplicates container images, firmware bundles, vendor packages. Matches overlays and reuses base layers. |
@@ -56,6 +57,8 @@
 ### 🛠️ CLI & DevOps Integration
 
 | Feature | Description |
+| ✅ **SBOM & QR Verification** | Scan a QR code or validate against SBOMs. Auto-downloads, crawls, and verifies firmware, ISOs, containers, and GitHub artifacts. Flags ghost files and mismatched provenance. |
+| ✅ **Software Firewall Mode** | Rewrites or rebuilds untrusted vendor blobs from clean verified sources. Strips telemetry, reapplies SBOMs, and signs safe variants. |
 |--------|-------------|
 | ✅ **Docker-first Ingestion** | Raw disk files piped into containers using loop devices + `--device=/dev/raw0`. |
 | ✅ **Composable Toolchain** | Plug into pipelines (`infogator scan path/`, `infocobra index -r target/`) as a first-class stage. |
@@ -84,5 +87,4 @@
 | 🛠️ **Syscall Tracing for Files Used** | Use `strace`/`dtruss` to trace files actually accessed during container or VM runs. |
 | 🔧 **CLI Mode Split** | Distinct UX for `infogator` (recursive archival indexer) vs `infocobra` (targeted, real-time scanner). |
 
----
 
