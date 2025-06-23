@@ -353,6 +353,155 @@
     <pre><code>open __postgresql/dashboard/index.html</code></pre>
 </section>
 
+
+<section>
+    <h2>How DataGator Sees Your Filesystem</h2>
+    <p>DataGator doesn’t just index file paths — it models your storage with cryptographic and structural fidelity.</p>
+    <ul>
+        <li>📁 <strong>Canonical Paths:</strong> Paths are stored as UTF-8 encoded, percent-escaped, and normalized segments</li>
+        <li>🔡 <strong>PUA-stripping and normalization:</strong> Ensures consistency across case/encoding quirks</li>
+        <li>🔍 <strong>Hashing Policy:</strong> Each file, segment, stream, and directory gets an MD5 + SHA256 identity</li>
+        <li>🧬 <strong>Raw vs Canonical:</strong> Stores both for forensic transparency</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Test-Driven from Day One</h2>
+    <p>Every core shell or AWK module in DataGator is paired with a unit test. No test, no merge. Run everything at once:</p>
+    <pre><code>find scripts -name '*_test.sh' -exec bash {} \;</code></pre>
+    <p>This ensures stability across updates, formats, and edge cases.</p>
+</section>
+
+<section>
+    <h2>Our Philosophy</h2>
+    <blockquote>
+        “We do not store files — we store truth.<br/>
+        Names are not paths — they are sequences of intention.”
+        <br/>— DataGator Design Memo #001
+    </blockquote>
+</section>
+
+<section>
+    <h2>Edge Cases and Real-World Gotchas</h2>
+    <ul>
+        <li>🔣 Filenames with control characters are safely encoded, raw form preserved</li>
+        <li>📂 File deletions are never removed — they're tracked as disappeared</li>
+        <li>📑 NTFS alternate data streams are treated as child files</li>
+        <li>🧲 Snapshots and USB mounts are treated as distinct indexable volumes</li>
+        <li>🔀 Sync logic maps chunk hashes and path segments, not whole files</li>
+    </ul>
+</section>
+
+<section id="user-profiles">
+    <h2>Who Is DataGator For?</h2>
+    <ul>
+        <li>🛠 <strong>Home Lab Architects</strong> — Multi-device ZFS setups, Pi clusters, NAS sprawl</li>
+        <li>🧪 <strong>Researchers & Developers</strong> — Indexing legacy data and academic corpora</li>
+        <li>🔍 <strong>Digital Forensics Pros</strong> — Path+hash snapshots for provable evidence trails</li>
+        <li>💾 <strong>Backup & Archival Tinkerers</strong> — Smart deduping, drift detection, and restoration</li>
+        <li>🧑‍⚖️ <strong>Compliance Officers</strong> — 21 CFR Part 11, GDPR, and audit traceability</li>
+    </ul>
+</section>
+
+<section id="vertical-kill">
+    <h2>What DataGator Replaces</h2>
+    <ul>
+        <li>🛠 Dev Environments — replaces Dockerfiles and Nix with rehydrated snapshots</li>
+        <li>📥 Package Managers — segment-based deduped installs instead of dependency hell</li>
+        <li>🧾 SBOM Tools — cryptographic manifests at source, not post-facto guesswork</li>
+        <li>🔐 Vaults/KMS — signed secrets with ACL lineage and timestamped provenance</li>
+        <li>🧠 ML Registries — hash-chain verified corpora and models for reproducibility</li>
+        <li>📦 Backup/Sync Tools — smarter than rsync, more forensic than NAS snapshots</li>
+    </ul>
+</section>
+
+<section id="command-reference">
+    <h2>CLI Command Overview</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Command</th>
+            <th>Description</th>
+            <th>Key Flags</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>scan</code></td>
+            <td>Ingest volumes from scan.yaml into indexed DB</td>
+            <td><code>--volume</code>, <code>--path</code></td>
+        </tr>
+        <tr>
+            <td><code>condense</code></td>
+            <td>Deduplicate, archive, and compress old sessions</td>
+            <td><code>--older-than</code>, <code>--archive-out</code></td>
+        </tr>
+        <tr>
+            <td><code>export</code></td>
+            <td>Export sessions or host views as JSON/YAML</td>
+            <td><code>--session</code>, <code>--out</code></td>
+        </tr>
+        <tr>
+            <td><code>doctor</code></td>
+            <td>Run diagnostics on system, mountpoints, and schemas</td>
+            <td><code>--details</code>, <code>--json</code></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="compliance">
+    <h2>Built for Compliance and Courtroom</h2>
+    <ul>
+        <li>📅 Immutable, time-sealed manifests for 21 CFR Part 11, GDPR</li>
+        <li>🔏 Signed content blobs for tamper-evident trails</li>
+        <li>📜 Full ACL lineage and permission diffs for NTFS/APFS/ext4</li>
+        <li>🧾 Court-admissible snapshots with hash+path chains</li>
+        <li>📈 Machine-verifiable diff reports over time</li>
+    </ul>
+</section>
+
+<section id="advanced-features">
+    <h2>Beyond Indexing: What Sets DataGator Apart</h2>
+    <ul>
+        <li>🧬 Recursive archive extraction inside disk images and formats like QIC/MDOS</li>
+        <li>🧊 Sparse file detection using native system APIs</li>
+        <li>🔀 Overlay fingerprinting for containers, VMs, and firmware</li>
+        <li>🔡 Metadata normalization for broken encodings and legacy filesystems</li>
+        <li>🌡️ Entropy heatmaps to visualize compressed or encrypted regions</li>
+    </ul>
+</section>
+
+<section id="ai-integrity">
+    <h2>AI Dataset Integrity & Model Provenance</h2>
+    <ul>
+        <li>✅ Legal authorship tracking with input → model → export hashes</li>
+        <li>✅ GDPR/EU AI Act compliance via full source traceability</li>
+        <li>✅ Poisoned dataset detection with diffable manifest snapshots</li>
+        <li>✅ Reproducibility for academic or benchmark use</li>
+    </ul>
+</section>
+
+<section id="plugin-sdk">
+    <h2>Extend DataGator with Custom Parsers</h2>
+    <p>Want to analyze a weird format or ancient archive? You can build your own extractor.</p>
+    <ul>
+        <li>📦 Add support with <code>infogator add-parser my_format.py</code></li>
+        <li>📜 Use declarative format schemas for reproducible exports</li>
+        <li>🔌 Join a growing community of open-source plugin developers</li>
+    </ul>
+</section>
+
+<section class="related-links">
+    <h2>Contribute</h2>
+    <p>DataGator is proudly open-source and community-driven. Want to add support for new archive formats or rare filesystems?</p>
+    <ul>
+        <li>🧪 Write a test first — no untested logic gets shipped</li>
+        <li>📦 Submit plugins in the <code>plugins/</code> directory</li>
+        <li>🔍 Use the checker: <code>scripts/tools/check_missing_tests.sh</code></li>
+    </ul>
+</section>
+
 <section>
     <h2>Future & Expansion Plans</h2>
     <ul>
@@ -368,7 +517,7 @@
     <h2>🔗 Related Projects & Sponsorship</h2>
     <ul>
         <li>
-            <strong><a href="https://swiftboot.dev" target="_blank">SwiftBoot</a></strong> — .
+            <strong><a href="https://swiftboot.dev" target="_blank">SwiftBoot</a></strong> — SwiftBoot is a CI/CD and security toolchain that builds ultra-minimal, immutable, bootable apps using its Popcorn runtime — where your app is the OS. The ecosystem enables sub-second booting, zero-runtime drift, and sealed, verifiable binaries for cloud or bare metal.
         </li>
         <li>
             <strong><a href="https://forticom.co" target="_blank">Forticom</a></strong> — a trusted messaging platform focused on secure, sovereign communication. Forticom builds on SwiftBoot and Popcorn to harden both server and client infrastructure at the kernel level.
