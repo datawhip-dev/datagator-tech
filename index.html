@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataGator — Forensic-Grade Indexing</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #222;
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background: #002244;
+            color: #fff;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .cta {
+            margin-top: 2rem;
+        }
+
+        .cta a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #00cc88;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        section {
+            padding: 2.5rem 1.5rem;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            margin-top: 1.5rem;
+            color: #004466;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
+
+        pre, code {
+            background: #f4f4f4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            display: block;
+            overflow-x: auto;
+        }
+
+        footer {
+            background: #f8f8f8;
+            color: #444;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* SCROLLABLE PANES — inherit by default */
+        .md-pane {
+            font-family: Menlo, Consolas, monospace;
+            white-space: pre-wrap;
+            background: #f9f9f9;
+            color: #111;
+            padding: 1.5rem 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            max-width: 960px;
+            margin: 2rem auto;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .kata-scroll {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: #ffffff;
+        }
+
+        .kata-box {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .kata-summary {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            grid-column: span 2;
+        }
+
+        .kata-section {
+            padding: 2rem;
+            background: #f9fafb;
+        }
+
+        .kata-description {
+            max-width: 700px;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+        section.investors {
+            background: rgba(102, 252, 241, 0.05);
+            border-left: 4px solid #66fcf1;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #111;
+                color: #eee;
+            }
+            header {
+                background: #000022;
+                color: #fff;
+            }
+
+            h3 {
+                color: #66fcf1;
+            }
+
+            th {
+                background: #222;
+                color: #fff;
+            }
+
+            td {
+                background: #1a1a1a;
+            }
+
+            pre, code {
+                background: #222;
+                color: #ccc;
+            }
+
+            .cta a {
+                background: #007755;
+                color: #fff;
+            }
+
+            .md-pane {
+                background: #1a1a1a;
+                color: #eee;
+                border-color: #333;
+            }
+
+            footer {
+                background: #111;
+                color: #888;
+            }
+
+            .kata-scroll {
+                background: #1a1a1a;
+                border-color: #333;
+            }
+
+            .kata-box {
+                background: #222;
+                color: #eee;
+            }
+
+            .kata-summary {
+                background: #333;
+                border-color: #555;
+                color: #ffe066;
+            }
+            .kata-section {
+                background: #1a1a1a;
+            }
+
+            .kata-description {
+                color: #ccc;
+            }
+            .related-links {
+                background: #1a1a1a;
+                color: #eee;
+            }
+
+            .related-links a {
+                color: #00ffe2; /* bright cyan-green, readable on dark */
+                text-decoration: underline;
+            }
+            .md-pane.md-markdown {
+                font-family: Menlo, Consolas, monospace;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                background: #f9f9f9;
+                color: #111;
+                padding: 1.5rem 2rem;
+                font-size: 0.95rem;
+                line-height: 1.6;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                max-width: 960px;
+                margin: 2rem auto;
+                overflow-y: auto;
+                text-align: left;
+            }
+            .md-pane-rendered {
+                background: #f9f9f9;
+                color: #111;
+                padding: 2rem;
+                border: 1px solid #ccc;
+                border-radius: 0.5rem;
+                overflow-y: auto;
+                font-family: sans-serif;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 2rem auto;
+                max-width: 960px;
+                height: 3in; /* ✅ added to enforce 3" height */
+            }
+        }
+        /* Dark mode overrides for inline-styled blocks */
+        @media (prefers-color-scheme: dark) {
+            [style*="background: #f9f9f9"],
+            [style*="background: #fdfdfd"],
+            [style*="background: #ffffff"],
+            [style*="background: #f3f4f6"],
+            [style*="background: #fef3c7"] {
+                background: #1a1a1a !important;
+                color: #eee !important;
+                border-color: #333 !important;
+            }
+
+            [style*="color: #4b5563"],
+            [style*="color: #111827"],
+            [style*="color: #111"] {
+                color: #ccc !important;
+            }
+            .md-pane.md-markdown {
+                background: #1a1a1a;
+                color: #eee;
+                border-color: #333;
+            }
+            .md-pane-rendered {
+                background: #1a1a1a;
+                color: #eee;
+                border-color: #333;
+            }
+            section.investors {
+                background: #e7f8fa;
+                border-left: 4px solid #0077cc;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>DataGator</h1>
+    <p>Portable, forensic-capable indexing and deduplication for filesystems, archives, containers, and raw devices.</p>
+    <div class="cta">
+        <a href="#features">🔍 Explore Features</a>
+        <a href="#get-started">🚀 Get Started</a>
+    </div>
+</header>
+
+<section id="features">
+    <h2>What Makes DataGator Unique?</h2>
+    <ul>
+        <li>🧠 <strong>Forensic Precision</strong> — Cryptographically fingerprints every file, stream, and path segment using MD5 + SHA256</li>
+        <li>🧬 <strong>Unicode-Aware Indexing</strong> — Handles normalization, control chars, raw vs canonical paths, and metadata-safe comparisons</li>
+        <li>🔁 <strong>Deduplication Engine</strong> — Detects and deduplicates identical content across nested archives, volumes, and snapshots</li>
+        <li>📁 <strong>Composite Archive Scanning</strong> — Recursively explores .zip, .iso, .dmg, .vhd, MDOS/QIC, even inside disk images</li>
+        <li>🧾 <strong>Time-Stamped, Immutable Snapshots</strong> — For audit logs, forensic trails, backup validation, and SBOM generation</li>
+        <li>📊 <strong>Human-Friendly Dashboards</strong> — Local HTML summaries of indexed content, snapshots, diffs, and drift</li>
+        <li>🔐 <strong>ACL-Aware Permissions</strong> — Captures and compares ACLs across NTFS, APFS, ext4, and NFSv4</li>
+        <li>🧪 <strong>Test-Driven Shell & AWK Codebase</strong> — Every core module ships with unit tests for sanity and longevity</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Use Cases Across Domains</h2>
+    <ul>
+        <li>🕵️ Digital forensics and chain-of-custody proof</li>
+        <li>💾 Smart backup with dedup + drift detection + rehydration</li>
+        <li>👩‍⚖️ Legal compliance (21 CFR Part 11, GDPR, audit diffs)</li>
+        <li>📦 Container and firmware reverse engineering</li>
+        <li>🧠 Academic and AI dataset lineage attestation</li>
+        <li>📚 Long-term archival + digital preservation (NARA-grade)</li>
+        <li>🔍 Reproducible build tracing (distro package walker)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Comparison: DataGator vs the World</h2>
+    <ul>
+        <li>✅ <strong>Versioned Index</strong> — Unlike rsync or basic backup tools, DG tracks exact changes and content hashes</li>
+        <li>✅ <strong>Cross-Platform</strong> — POSIX-native, works in containers, bind-mounts, and loopback devices</li>
+        <li>✅ <strong>Filesystem-Agnostic</strong> — NTFS, ext4, APFS, HFS+, FAT, ZFS, raw .img/.dsk/.iso — all ingestible</li>
+        <li>✅ <strong>Audit-Ready</strong> — All snapshots include cryptographic identity, timestamp, and provenance chains</li>
+        <li>❌ <strong>No Vendor Lock-In</strong> — 100% local, no cloud required, open output formats</li>
+    </ul>
+</section>
+
+<section id="get-started">
+    <h2>Get Started in 3 Steps</h2>
+    <p>All you need is a bind-mount and Docker or Podman.</p>
+    <pre><code>docker run --rm \
+  -v /your/data:/mnt:ro \
+  -v ~/.DataGator.id:/etc/DataGator.id:ro \
+  datagator scan /mnt
+</code></pre>
+    <p>Want to detect changes over time?</p>
+    <pre><code>./drift_detector.sh</code></pre>
+    <p>Need a web report?</p>
+    <pre><code>open __postgresql/dashboard/index.html</code></pre>
+</section>
+
+<section>
+    <h2>Future & Expansion Plans</h2>
+    <ul>
+        <li>🌐 Web UI Explorer with overlay tree viewer</li>
+        <li>🧠 AI summarization of suspicious archives or entropy zones</li>
+        <li>📊 PostgreSQL/SQLite backend for diffable index snapshots</li>
+        <li>🧬 FUSE-based virtual mount of indexed archives (planned)</li>
+        <li>🔥 Entropy heatmap per file and segment (with SVG export)</li>
+    </ul>
+</section>
+
+<section class="related-links">
+    <h2>🔗 Related Projects & Sponsorship</h2>
+    <ul>
+        <li>
+            <strong><a href="https://swiftboot.dev" target="_blank">SwiftBoot</a></strong> — .
+        </li>
+        <li>
+            <strong><a href="https://forticom.co" target="_blank">Forticom</a></strong> — a trusted messaging platform focused on secure, sovereign communication. Forticom builds on SwiftBoot and Popcorn to harden both server and client infrastructure at the kernel level.
+        </li>
+        <li>
+            <strong><a href="https://techguru.byiq.org" target="_blank">techguru.byiq.org</a></strong> — founder portfolio and polymath projects spanning decades of foundational technology, from microkernel OS to high-trust financial infrastructure.
+        </li>
+        <li>
+            <strong><a href="https://github.com/sponsors/paulcharlton" target="_blank">Sponsor @paulcharlton on GitHub</a></strong> — your support helps drive innovation in ultra-minimal, high-integrity system software.
+        </li>
+    </ul>
+</section>
+
+<section class="related-links">
+    <h2>About the Project</h2>
+    <p>
+        <strong>DataGator</strong> is maintained by a community of forensic technologists, archivists, and system tinkerers who believe in open, verifiable truth over software magic. We build for reproducibility, auditability, and the long arc of time.
+    </p>
+</section>
+
+<section class="related-links">
+    <h2>About the Founder</h2>
+    <p>
+        Swiftboot was founded by Paul Charlton — a polymath engineer who led foundational work at Apple, Chase,
+        D.E. Shaw, and Intuit. Learn more at <strong><a href="https://techguru.byiq.org" target="_blank">techguru.byiq.org</a></strong>.
+    </p>
+</section>
+
+<section class="related-links">
+    <h2>Sponsor DataGator</h2>
+    <p>
+        You can support DataGator and its mission by sponsoring the founder on GitHub:
+        <strong><a href="https://github.com/sponsors/techguru" target="_blank">github.com/sponsors/techguru</a></strong>
+    </p>
+</section>
+
+<section class="related-links">
+    <h2>Investors</h2>
+    <p>
+        DataGator is currently <strong>SAFE-ready</strong> for qualified investors via <strong>Carta</strong>.<br />
+        To receive more information, please contact us at:<br />
+        <strong><a href="mailto:invest@datagator.tech">invest@datagator.tech</a></strong>
+    </p>
+</section>
+
+<footer>
+    <p>© 2025 DataGator.tech — Crawl once. Know everything. 🐊</p>
+</footer>
+
+</body>
+</html>

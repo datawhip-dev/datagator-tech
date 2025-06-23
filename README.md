@@ -1,6 +1,6 @@
-# 🧠 FSIndex: Forensic-Grade Filesystem Indexer & Deduplicator
+# 🧠 DataGator: Forensic-Grade Filesystem Indexer & Deduplicator
 
-FSIndex is a portable, one-container, test-driven, forensic-capable filesystem inventory and deduplication system.  
+DataGator is a portable, one-container, test-driven, forensic-capable filesystem inventory and deduplication system.  
 It models every file, directory, stream, and mount with cryptographic precision — and makes it queryable, syncable, and permanent.
 
 ---
@@ -31,7 +31,7 @@ Most file indexes fail when:
 - Hardlinks, symlinks, ACLs, ADS, and NTFS streams go untracked
 - Snapshots, USB volumes, and sync targets drift
 
-FSIndex was built to:
+DataGator was built to:
 > **Create a perfect, portable, forensic map of what you have and where it lives — from top to bottom.**
 
 ---
@@ -40,7 +40,7 @@ FSIndex was built to:
 
 ### 📁 Path Segments Are Canonical
 
-FSIndex treats paths as **ordered lists of segments**, each:
+DataGator treats paths as **ordered lists of segments**, each:
 - UTF-8 encoded
 - Percent-escaped (no `/`, `NUL`, or invisible bytes)
 - Normalized (NFC or NFD declared)
@@ -90,8 +90,8 @@ find scripts -name '*_test.sh' -exec bash {} \;
 ```bash
 docker run --rm \
   -v /your/volume:/mnt/fsroot:ro \
-  -v ~/.fsindex.id:/etc/fsindex.id:ro \
-  fsindex-container
+  -v ~/.DataGator.id:/etc/DataGator.id:ro \
+  DataGator-container
 ```
 
 ### 🧾 2. Scan and Index
@@ -138,7 +138,7 @@ Open `__postgresql/dashboard/index.html` in a browser.
 
 > "We do not store files — we store truth.  
 >  Names are not paths — they are sequences of intention."  
->  — FSIndex Design Memo #001
+>  — DataGator Design Memo #001
 
 ---
 
